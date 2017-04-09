@@ -1,0 +1,36 @@
+package fr.Yoyo522.animatedbar.utils;
+
+import org.bukkit.Bukkit;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarFlag;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitScheduler;
+
+import fr.Yoyo522.animatedbar.Main;
+
+public class AirBar {
+
+	public static void sendAirBar(Player p, String message, BarColor color, BarStyle style, BarFlag flags) {
+
+			BossBar sending = Bukkit.getServer().createBossBar(message, color, style, flags);
+			sending.setTitle(message);
+			sending.setColor(color);
+			sending.setStyle(style);
+			sending.addFlag(flags);
+			sending.addPlayer(p);
+			BukkitScheduler s = Bukkit.getServer().getScheduler();
+			s.scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
+				
+				@Override
+				public void run() {
+
+				sending.removeAll();		
+				}
+			},40,40);
+
+		}
+
+	
+}
